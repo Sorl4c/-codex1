@@ -1,4 +1,5 @@
 [
+<<<<<<< HEAD
     {
         "id": 1,
         "brand": "Prueba",
@@ -68,3 +69,24 @@
         "brand_logo": ""
     }
 ]
+=======
+  {
+    "id": 1,
+    "brand": "Prueba",
+    "model": "Modelo",
+    "year": 9,
+    "price": 0.06,
+    "mileage": 200,
+    "image": null
+  },
+  {
+    "id": 2,
+    "brand": "Coche 2",
+    "model": "Pepito Plus",
+    "year": 7,
+    "price": 0.07,
+    "mileage": 200,
+    "image": null
+  }
+]
+>>>>>>> 19c44afc6cda4fd0235ebcbedc8b4788254611a3
