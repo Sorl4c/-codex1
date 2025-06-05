@@ -1,18 +1,20 @@
 [
-    {
-        "id": 1,
-        "brand": "Prueba",
-        "model": "Modelo",
-        "year": 9,
-        "price": 0.06,
-        "mileage": 200
-    },
-    {
-        "id": 2,
-        "brand": "Coche 2",
-        "model": "Pepito Plus",
-        "year": 7,
-        "price": 0.07,
-        "mileage": 200
-    }
+  {
+    "id": 1,
+    "brand": "Prueba",
+    "model": "Modelo",
+    "year": 9,
+    "price": 0.06,
+    "mileage": 200,
+    "image": null
+  },
+  {
+    "id": 2,
+    "brand": "Coche 2",
+    "model": "Pepito Plus",
+    "year": 7,
+    "price": 0.07,
+    "mileage": 200,
+    "image": null
+  }
 ]
