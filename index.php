@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+header('Content-Type: text/html; charset=UTF-8');
 
 const DATA_FILE = __DIR__ . '/cars.json';
 
@@ -18,47 +19,6 @@ function readCars(): array {
     if (!file_exists(DATA_FILE)) {
         return [];
     }
-    $json = file_get_contents(DATA_FILE);
-    if ($json === false) {
-        return [];
-    }
-    $data = json_decode($json, true);
-    if (!is_array($data)) {
-        return [];
-    }
-    $cars = [];
-    foreach ($data as $item) {
-        $cars[] = new Car(
-            (int)$item['id'],
-            (string)$item['brand'],
-            (string)$item['model'],
-            (int)$item['year'],
-            (float)$item['price'],
-            (int)$item['mileage']
-        );
-    }
-    return $cars;
-}
-
-rm -f index.php
-cat <<'EOF' > index.php
-<?php
-declare(strict_types=1);
-
-const DATA_FILE = __DIR__ . '/cars.json';
-
-class Car {
-    public function __construct(
-        public int \$id,
-        public string \$brand,
-        public string \$model,
-        public int \$year,
-        public float \$price,
-        public int \$mileage
-    ) {}
-}
-EOF
-cat index.php
     $json = file_get_contents(DATA_FILE);
     if ($json === false) {
         return [];
@@ -118,37 +78,67 @@ function findCarById(array $cars, int $id): ?Car {
     return null;
 }
 
-function addCar(array $data): void {
+function validateCarData(array $data): array {
+    $errors = [];
+    if (empty(trim($data['brand'] ?? ''))) {
+        $errors[] = 'La marca es obligatoria.';
+    }
+    if (empty(trim($data['model'] ?? ''))) {
+        $errors[] = 'El modelo es obligatorio.';
+    }
+    if (!isset($data['year']) || !is_numeric($data['year']) || (int)$data['year'] <= 0) {
+        $errors[] = 'El año debe ser un número positivo.';
+    }
+    if (!isset($data['price']) || !is_numeric($data['price']) || (float)$data['price'] < 0) {
+        $errors[] = 'El precio debe ser un número positivo.';
+    }
+    if (!isset($data['mileage']) || !is_numeric($data['mileage']) || (int)$data['mileage'] < 0) {
+        $errors[] = 'El kilometraje debe ser un número positivo.';
+    }
+    return $errors;
+}
+
+function addCar(array $data): array {
+    $errors = validateCarData($data);
+    if ($errors) {
+        return $errors;
+    }
     $cars = readCars();
     $id = getNextId($cars);
     $car = new Car(
         $id,
-        $data['brand'] ?? '',
-        $data['model'] ?? '',
-        (int)($data['year'] ?? 0),
-        (float)($data['price'] ?? 0),
-        (int)($data['mileage'] ?? 0)
+        trim($data['brand']),
+        trim($data['model']),
+        (int)$data['year'],
+        (float)$data['price'],
+        (int)$data['mileage']
     );
     $cars[] = $car;
     saveCars($cars);
+    return [];
 }
 
-function updateCar(int $id, array $data): void {
+function updateCar(int $id, array $data): array {
+    $errors = validateCarData($data);
+    if ($errors) {
+        return $errors;
+    }
     $cars = readCars();
     foreach ($cars as $index => $car) {
         if ($car->id === $id) {
             $cars[$index] = new Car(
                 $id,
-                $data['brand'] ?? $car->brand,
-                $data['model'] ?? $car->model,
-                (int)($data['year'] ?? $car->year),
-                (float)($data['price'] ?? $car->price),
-                (int)($data['mileage'] ?? $car->mileage)
+                trim($data['brand']),
+                trim($data['model']),
+                (int)$data['year'],
+                (float)$data['price'],
+                (int)$data['mileage']
             );
             break;
         }
     }
     saveCars($cars);
+    return [];
 }
 
 function deleteCar(int $id): void {
@@ -159,16 +149,21 @@ function deleteCar(int $id): void {
 
 $action = $_GET['action'] ?? '';
 
+$formErrors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'add') {
-        addCar($_POST);
-        header('Location: index.php');
-        exit;
+        $formErrors = addCar($_POST);
+        if (!$formErrors) {
+            header('Location: index.php');
+            exit;
+        }
     }
     if ($action === 'edit' && isset($_GET['id'])) {
-        updateCar((int)$_GET['id'], $_POST);
-        header('Location: index.php');
-        exit;
+        $formErrors = updateCar((int)$_GET['id'], $_POST);
+        if (!$formErrors) {
+            header('Location: index.php');
+            exit;
+        }
     }
 }
 
@@ -196,6 +191,14 @@ if ($action === 'edit' && isset($_GET['id'])) {
 <body>
 <div class="container py-4">
     <h1 class="mb-4">Gestor de Coches</h1>
+    <?php if (!empty(
+        $formErrors)): ?>
+        <div class="alert alert-danger">
+            <?php foreach ($formErrors as $err): ?>
+                <div><?php echo htmlspecialchars($err); ?></div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
     <div class="mb-5">
         <h2><?php echo $editCar ? 'Editar Coche' : 'Añadir Coche'; ?></h2>
         <form method="post" action="?action=<?php echo $editCar ? 'edit&id=' . $editCar->id : 'add'; ?>" class="row g-3">
