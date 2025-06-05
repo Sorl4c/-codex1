@@ -3,16 +3,34 @@
         "id": 1,
         "brand": "Prueba",
         "model": "Modelo",
+        "short_desc": "",
         "year": 9,
+        "mileage": 200,
+        "fuel": "",
+        "power": "",
         "price": 0.06,
-        "mileage": 200
+        "main_image": "",
+        "alt_image1": "",
+        "alt_image2": "",
+        "alt_image3": "",
+        "long_desc": "",
+        "brand_logo": ""
     },
     {
         "id": 2,
         "brand": "Coche 2",
         "model": "Pepito Plus",
+        "short_desc": "Cochecito",
         "year": 7,
+        "mileage": 200,
+        "fuel": "Diesel",
+        "power": "222",
         "price": 0.07,
-        "mileage": 200
+        "main_image": "main_68414a335e99b_especias.jpg",
+        "alt_image1": "alt_image1_68414d98b9b64_campofrio.jpg",
+        "alt_image2": "alt_image2_68414d98b9e3e_Leonardo_Diffusion_open_sea_reflecting_stock_market_chart_1-transformed.jpeg",
+        "alt_image3": "alt_image3_68414d98ba43a_logo-kit-digital.png",
+        "long_desc": "Veh\u00edculo en excelente estado con mantenimiento completo al d\u00eda. Incluye sistema de navegaci\u00f3n, asientos de cuero, climatizador autom\u00e1tico y sistema de sonido premium. Ideal para ejecutivos que buscan confort y prestaciones superiores",
+        "brand_logo": ""
     }
 ]
