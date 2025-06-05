@@ -199,7 +199,7 @@ function updateCar(int $id, array $data): array {
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }
-    $mainImageName = $data['main_image'] ?? '';
+    $mainImageName = $data['main_image_current'] ?? ($data['main_image'] ?? '');
     if (!empty($_FILES['main_image']['name'])) {
         $mainImageName = uniqid('main_') . '_' . basename($_FILES['main_image']['name']);
         move_uploaded_file($_FILES['main_image']['tmp_name'], $uploadDir . $mainImageName);
@@ -207,7 +207,8 @@ function updateCar(int $id, array $data): array {
     $altImages = [];
     foreach ([1,2,3] as $i) {
         $key = 'alt_image' . $i;
-        $altImages[$i] = $data[$key] ?? '';
+        $currentKey = $key . '_current';
+        $altImages[$i] = $data[$currentKey] ?? ($data[$key] ?? '');
         if (!empty($_FILES[$key]['name'])) {
             $altName = uniqid($key . '_') . '_' . basename($_FILES[$key]['name']);
             move_uploaded_file($_FILES[$key]['tmp_name'], $uploadDir . $altName);

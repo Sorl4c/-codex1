@@ -1,4 +1,5 @@
 /* ------ Variables de color ------ */
+
 :root {
   --primary-color: #d35400;
   --secondary-color: #e67e22;
@@ -9,30 +10,25 @@
   --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f8f9fa;
-  line-height: 1.6;
-  margin: 0;
-  padding: 2rem;
-}
+/* ------ Estilos Base para .card.vehicle-card ------ */
 
 .card.vehicle-card {
   border-radius: 16px;
   box-shadow: var(--shadow-light);
   border: 1.5px solid var(--border-color);
   overflow: hidden;
-  transition:
-    box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 0.35s,
-    transform 0.23s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.35s, transform 0.23s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* ------ Hover exlusivo para .card.vehicle-card ------ */
 
 .card.vehicle-card:hover {
   box-shadow: var(--shadow-hover), 0 0 0 2px var(--accent-color);
   border-color: var(--accent-color);
   transform: translateY(-6px) scale(1.012);
 }
+
+/* ------ Delineador superior animado ------ */
 
 .card.vehicle-card::before {
   content: '';
@@ -41,12 +37,7 @@ body {
   left: 0;
   width: 0;
   height: 3px;
-  background: linear-gradient(
-    90deg,
-    var(--primary-color),
-    var(--accent-color),
-    var(--secondary-color)
-  );
+  background: linear-gradient( 90deg, var(--primary-color), var(--accent-color), var(--secondary-color) );
   transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 2;
 }
@@ -54,6 +45,8 @@ body {
 .card.vehicle-card:hover::before {
   width: 100%;
 }
+
+/* ------ Contenedor de imagen ------ */
 
 .vehicle-image {
   position: relative;
@@ -66,17 +59,16 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition:
-    transform 0.33s cubic-bezier(0.4, 0, 0.2, 1),
-    filter 0.27s;
+  transition: transform 0.33s cubic-bezier(0.4, 0, 0.2, 1), filter 0.27s;
   will-change: transform, filter;
 }
 
 .card.vehicle-card:hover .vehicle-image img {
   transform: scale(1.08) rotate(-1deg);
-  filter: brightness(1.06) saturate(1.18)
-    drop-shadow(0 4px 12px rgba(243, 156, 18, 0.2));
+  filter: brightness(1.06) saturate(1.18) drop-shadow(0 4px 12px rgba(243, 156, 18, 0.2));
 }
+
+/* ------ Thumbnails Gallery ------ */
 
 .thumbnails {
   display: flex;
@@ -96,11 +88,12 @@ body {
   transition: border-color 0.2s, transform 0.2s;
 }
 
-.thumbnails img:hover,
-.thumbnails img.selected {
+.thumbnails img:hover, .thumbnails img.selected {
   border-color: var(--accent-color);
   transform: scale(1.08);
 }
+
+/* ------ Overlay de categoría ------ */
 
 .image-overlay {
   position: absolute;
@@ -126,6 +119,8 @@ body {
   background: linear-gradient(90deg, #fff8f1 40%, #ffe0b1 100%);
   color: var(--accent-color);
 }
+
+/* ------ Contenido interno ------ */
 
 .vehicle-info {
   padding: 2rem;
@@ -173,13 +168,11 @@ body {
   margin-bottom: 0.5rem;
 }
 
+/* ------ Etiqueta de precio ------ */
+
 .price-tag {
   display: inline-block;
-  background: linear-gradient(
-    135deg,
-    var(--accent-color) 50%,
-    var(--secondary-color) 100%
-  );
+  background: linear-gradient( 135deg, var(--accent-color) 50%, var(--secondary-color) 100% );
   color: white;
   padding: 0.80rem 1.55rem;
   border-radius: 25px;
@@ -188,18 +181,16 @@ body {
   margin-bottom: 1rem;
   box-shadow: 0 3px 16px rgba(243, 166, 25, 0.2);
   letter-spacing: 1px;
-  transition:
-    background 0.4s,
-    box-shadow 0.23s,
-    transform 0.25s;
+  transition: background 0.4s, box-shadow 0.23s, transform 0.25s;
 }
 
 .card.vehicle-card:hover .price-tag {
   background: linear-gradient(90deg, #ffba41 30%, #f39c12 100%);
   transform: scale(1.06) rotate(-1deg);
-  box-shadow: 0 6px 32px rgba(243, 166, 25, 0.2),
-    0 0 0 4px rgba(255, 225, 29, 0.16);
+  box-shadow: 0 6px 32px rgba(243, 166, 25, 0.2), 0 0 0 4px rgba(255, 225, 29, 0.16);
 }
+
+/* ------ Cuadrícula de especificaciones ------ */
 
 .specs-grid {
   display: grid;
@@ -211,28 +202,17 @@ body {
 .spec-item {
   display: flex;
   align-items: center;
-  background: linear-gradient(
-    90deg,
-    #f8f9fa 70%,
-    #ffe4b8 100%
-  );
+  background: linear-gradient( 90deg, #f8f9fa 70%, #ffe4b8 100% );
   padding: 0.55rem 0.5rem;
   border-radius: 8px;
   border-left: 3.5px solid var(--accent-color);
   box-shadow: 0 1px 4px rgba(246, 180, 76, 0.09);
-  transition:
-    background 0.26s,
-    box-shadow 0.23s,
-    transform 0.22s;
+  transition: background 0.26s, box-shadow 0.23s, transform 0.22s;
   cursor: pointer;
 }
 
 .spec-item:hover {
-  background: linear-gradient(
-    90deg,
-    #fff3e6 70%,
-    #fff5df 100%
-  );
+  background: linear-gradient( 90deg, #fff3e6 70%, #fff5df 100% );
   box-shadow: 0 3px 16px rgba(255, 225, 29, 0.38);
   transform: translateX(6px) scale(1.035);
 }
@@ -273,6 +253,8 @@ body {
   letter-spacing: 0.2px;
 }
 
+/* ------ Descripción debajo de specs ------ */
+
 .vehicle-description {
   background: linear-gradient(90deg, #fff 60%, #fff7ed 100%);
   padding: 1.5rem;
@@ -284,14 +266,22 @@ body {
   margin-top: 1.5rem;
 }
 
+/* ------ Media queries para responsive ------ */
+
 @media (max-width: 900px) {
   .vehicle-image {
     height: 200px;
     border-radius: 16px 16px 0 0;
   }
+}
+
+@media (max-width: 900px) {
   .card.vehicle-card {
     border-radius: 16px;
   }
+}
+
+@media (max-width: 900px) {
   .specs-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -302,12 +292,21 @@ body {
     height: 170px;
     border-radius: 16px 16px 0 0;
   }
+}
+
+@media (max-width: 768px) {
   .vehicle-info {
     padding: 1.18rem;
   }
+}
+
+@media (max-width: 768px) {
   .vehicle-title {
     font-size: 1.12rem;
   }
+}
+
+@media (max-width: 768px) {
   .specs-grid {
     grid-template-columns: 1fr;
   }
@@ -317,16 +316,45 @@ body {
   .card.vehicle-card {
     margin-bottom: 1.5rem;
   }
+}
+
+@media (max-width: 576px) {
   .vehicle-info {
     padding: 0.96rem;
   }
+}
+
+@media (max-width: 576px) {
   .price-tag {
     font-size: 1.03rem;
     padding: 0.55rem 0.98rem;
   }
+}
+
+@media (max-width: 576px) {
   .brand-logo {
-    width: 26px; 
-    height: 26px; 
+    width: 26px;
+    height: 26px;
     padding: 2px;
+  }
+}
+
+/* Quita el padding lateral de la columna de la imagen */
+
+@media (max-width: 576px) {
+  .card.vehicle-card .col-lg-5 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/* Haz que la imagen ocupe el 100% del ancho de la columna */
+
+@media (max-width: 576px) {
+  .vehicle-image {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
   }
 }
